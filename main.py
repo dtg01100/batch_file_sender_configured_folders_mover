@@ -34,6 +34,10 @@ def select_folder_old_new_wrapper(selection):
         database_migrate_job = mover.DbMigrationThing(old_database_path, new_database_path)
 
 
+def database_migrate_job_wrapper():
+    database_migrate_job.do_migrate(progress_bar, root_window)
+    process_database_files_button.configure(state=DISABLED)
+
 old_database_file_frame = Frame(root_window)
 new_database_file_frame = Frame(root_window)
 go_button_frame = Frame(root_window)
@@ -50,10 +54,6 @@ new_database_label = Label(master=new_database_file_frame, text="No File Selecte
 old_database_label.pack(anchor='w')
 new_database_label.pack(anchor='w')
 
-
-def database_migrate_job_wrapper():
-    database_migrate_job.do_migrate(progress_bar, root_window)
-    process_database_files_button.configure(state=DISABLED)
 
 process_database_files_button = Button(master=go_button_frame, text="Move Active Folders",
                                        command=database_migrate_job_wrapper)
