@@ -11,7 +11,7 @@ class DbMigrationThing:
         self.number_of_folders = IntVar()
         self.progress_of_folders = IntVar()
 
-    def do_migrate(self):
+    def do_migrate(self, progress_bar, master):
         shutil.copy(os.path.abspath(self.new_folder_path), os.path.abspath(self.new_folder_path) + ".bak")
 
         new_database_connection = dataset.connect('sqlite:///' + self.new_folder_path)
@@ -21,6 +21,7 @@ class DbMigrationThing:
         old_folders_table = old_database_connection['folders']
         self.number_of_folders = old_folders_table.count(folder_is_active="True")
         self.progress_of_folders = 0
+        progress_bar.configure(maximum=self.number_of_folders, value=self.progress_of_folders)
 
         def test_line_for_match(line):
             line_match = False
@@ -96,3 +97,5 @@ class DbMigrationThing:
                                               ftp_port=line['ftp_port'],
                                               email_subject_line=line['email_subject_line']))
             self.progress_of_folders += 1
+            progress_bar.configure(value=self.progress_of_folders)
+            master.update()

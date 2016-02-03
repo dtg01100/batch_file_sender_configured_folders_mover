@@ -51,14 +51,18 @@ old_database_label.pack()
 new_database_label.pack()
 
 process_database_files_button = Button(master=go_button_frame, text="Move Active Folders",
-                                       command=lambda: database_migrate_job.do_migrate())
+                                       command=lambda: database_migrate_job.do_migrate(progress_bar, root_window))
 
 process_database_files_button.configure(state=DISABLED)
 
 process_database_files_button.pack()
 
+progress_bar = Progressbar(master=progress_bar_frame)
+progress_bar.pack()
+
 new_database_file_frame.pack()
 old_database_file_frame.pack()
 go_button_frame.pack()
+progress_bar_frame.pack()
 
 root_window.mainloop()
