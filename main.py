@@ -50,8 +50,13 @@ new_database_label = Label(master=new_database_file_frame, text="No File Selecte
 old_database_label.pack(anchor='w')
 new_database_label.pack(anchor='w')
 
+
+def database_migrate_job_wrapper():
+    database_migrate_job.do_migrate(progress_bar, root_window)
+    process_database_files_button.configure(state=DISABLED)
+
 process_database_files_button = Button(master=go_button_frame, text="Move Active Folders",
-                                       command=lambda: database_migrate_job.do_migrate(progress_bar, root_window))
+                                       command=database_migrate_job_wrapper)
 
 process_database_files_button.configure(state=DISABLED)
 
