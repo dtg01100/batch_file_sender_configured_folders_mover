@@ -40,15 +40,15 @@ go_button_frame = Frame(root_window)
 progress_bar_frame = Frame(root_window)
 
 old_database_selection_button = Button(master=old_database_file_frame, text="Select Old Database File",
-                                       command=lambda: select_folder_old_new_wrapper("old")).pack()
+                                       command=lambda: select_folder_old_new_wrapper("old")).pack(anchor='w')
 
 new_database_selection_button = Button(master=new_database_file_frame, text="Select New Database File",
-                                       command=lambda: select_folder_old_new_wrapper("new")).pack()
+                                       command=lambda: select_folder_old_new_wrapper("new")).pack(anchor='w')
 
 old_database_label = Label(master=old_database_file_frame, text="No File Selected")
 new_database_label = Label(master=new_database_file_frame, text="No File Selected")
-old_database_label.pack()
-new_database_label.pack()
+old_database_label.pack(anchor='w')
+new_database_label.pack(anchor='w')
 
 process_database_files_button = Button(master=go_button_frame, text="Move Active Folders",
                                        command=lambda: database_migrate_job.do_migrate(progress_bar, root_window))
@@ -60,9 +60,9 @@ process_database_files_button.pack()
 progress_bar = Progressbar(master=progress_bar_frame)
 progress_bar.pack()
 
-new_database_file_frame.pack()
-old_database_file_frame.pack()
-go_button_frame.pack()
-progress_bar_frame.pack()
+new_database_file_frame.pack(anchor='w')
+old_database_file_frame.pack(anchor='w')
+go_button_frame.pack(side=LEFT, anchor='w')
+progress_bar_frame.pack(side=RIGHT, anchor='e')
 
 root_window.mainloop()
